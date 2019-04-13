@@ -1,5 +1,5 @@
-const KEYWORDS = require('../../tokens/keywords')
-const ELEMENTS = require('../../tokens/elements')
+const KEYWORDS = require('../../grammar/keywords')
+const ELEMENTS = require('../../grammar/elements')
 const WHITE_SPACE = /\s/
 const L_CHARS = /[a-z]/
 const CHAR = /\w/
