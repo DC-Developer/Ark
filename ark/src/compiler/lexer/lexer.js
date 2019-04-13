@@ -1,4 +1,4 @@
-import tokenizer from './tokenize'
+const tokenizer = require('./tokenize')
 
 class Lexer {
   constructor(file) {
@@ -10,4 +10,5 @@ class Lexer {
         return this.file
   }
 }
-export default Lexer
+
+module.exports = Lexer
