@@ -108,8 +108,6 @@ function walk(html) {
                 range: [$s_pos, this.pos]
               })
           } else {
-              console.log('closing tag check: ', ctag_check, this.pos)
-              console.log(this)
               throw new SyntaxError('Missing closing tag')
           }
       }
