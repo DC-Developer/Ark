@@ -96,7 +96,6 @@ module.exports = (file) => {
         buff = file[++state.pos]
         while (!EQUALS.test(buff) && state.pos != state.length) {
             buff = file[++state.pos]
-            console.log(buff)
         }
 
         if (EQUALS.test(buff)) {
@@ -105,7 +104,6 @@ module.exports = (file) => {
               value: buff,
               range: [state.pos]
             })
-            console.log('THE EQUALS TEST: ', state.tokens)
         } else {
             //Will add more robust error handling
             throw new SyntaxError('Missing semi-colon in variable declaration')
@@ -114,7 +112,6 @@ module.exports = (file) => {
         //assumed the equals was handled
         buff = file[++state.pos]
         walk.call(state, file)
-        console.log('STATE: ', state)
     }
 
     //Return statement parsing will be added later
