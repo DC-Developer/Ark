@@ -58,7 +58,6 @@ function walk(html) {
     buff = html[++this.pos]
 
     if (buff == '<') {
-      // return console.log(buff, this.lexemes)
       let ctag_check = ''
       let buff_cpy = buff
       let pos = this.pos
