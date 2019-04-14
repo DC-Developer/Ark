@@ -106,7 +106,7 @@ module.exports = (file) => {
             })
         } else {
             //Will add more robust error handling
-            throw new SyntaxError('Missing semi-colon in variable declaration')
+            throw new SyntaxError('Missing "=" in variable declaration')
         }
     
         //assumed the equals was handled
