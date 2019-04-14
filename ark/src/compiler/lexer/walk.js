@@ -9,14 +9,13 @@ const NEW_LINE = /\r\n?|\n/
 function walk(html) {
   if (this.pos == this.length) return
 
-  let buff = ''
+  let buff = html[this.pos]
   let buff_string = ''
   let closing_tag = ''
   let parsed_ctag = false
   let etag_parse_started = false
   let s_pos, e_pos
 
-  buff = html[this.pos] 
   while (buff != '<' && this.pos != this.length)
     buff = html[++this.pos]
 
