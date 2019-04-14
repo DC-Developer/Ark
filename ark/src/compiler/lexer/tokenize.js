@@ -67,7 +67,6 @@ module.exports = (file) => {
             is_return = false
 
         state.lexemes = []
-
         buff_string_type = ''
     } else {
         is_keyword = false
