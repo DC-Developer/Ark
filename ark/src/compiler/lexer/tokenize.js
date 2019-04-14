@@ -1,5 +1,5 @@
-const KEYWORDS = require('../../grammar/keywords')
-const ELEMENTS = require('../../grammar/elements')
+const KEYWORDS = require('../grammar/keywords')
+const ELEMENTS = require('../grammar/elements')
 const WHITESPACE = /\s/
 const EQUALS = /=/
 const L_CHARS = /[a-z]/
@@ -122,4 +122,5 @@ module.exports = (file) => {
     state.pos++
   }
   console.log('Lexing Complete')
+  console.log('Tokens: ', state.tokens)
 }
