@@ -55,7 +55,6 @@ function walk(html) {
 
     if (buff == '<') {
       let ctag_check = ''
-      let buff_cpy = buff
       let pos = this.pos
       let $s_pos = pos
       let ahead = pos + 1
@@ -86,13 +85,13 @@ function walk(html) {
             this.lexemes = []
           }
 
-          while (buff_cpy != '>' && pos != this.length) {
-              ctag_check += buff_cpy
-              buff_cpy = html[++this.pos]
+          while (buff != '>' && pos != this.length) {
+              ctag_check += buff
+              buff = html[++this.pos]
           }
 
-          if (buff_cpy == '>')
-              ctag_check += buff_cpy
+          if (buff == '>')
+              ctag_check += buff
           else
               throw new SyntaxError('Missing ">" in closing tag')
               
