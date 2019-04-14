@@ -98,7 +98,6 @@ module.exports = (file) => {
         state.lexemes = []
         buff_string_type = ''
 
-        //now check for EQUALS
         while (!EQUALS.test(buff) && state.pos != state.length) {
             buff = file[++state.pos]
         }
