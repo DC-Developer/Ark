@@ -133,6 +133,8 @@ module.exports = (file) => {
         if (buff == '(')
             buff = file[++state.pos]
         if (buff == '<') {
+            //this will be improved upon, for now just assume
+            //"<" is the only correct next token
             state.tokens = state.tokens.concat(temp)
             walk.call(state, file)
         }
