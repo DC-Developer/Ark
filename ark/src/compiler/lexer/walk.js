@@ -16,7 +16,6 @@ function walk(html) {
   let etag_parse_started = false
   let s_pos, e_pos
 
-
   buff = html[this.pos] 
   while (buff != '<' && this.pos != this.length)
     buff = html[++this.pos]
@@ -33,7 +32,7 @@ function walk(html) {
         buff = html[++this.pos]
         buff_string += buff
     }
-    console.log('HTML: ', buff_string)
+
     if (!ELEMENTS.includes(buff_string))
         throw new SyntaxError('Invalid JSX')
 
