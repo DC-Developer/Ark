@@ -3,6 +3,7 @@ const ELEMENTS = require('../grammar/elements')
 const WHITESPACE = /\s/
 const EQUALS = /=/
 const L_CHARS = /[a-z]/
+const NEW_LINE = /\r\n?|\n/
 
 const walk = require('./walk')
 
@@ -59,6 +60,11 @@ module.exports = (file) => {
           range: [range_start, range_end]
         })
 
+        if (buff_string_type == 'return')
+            is_return = true
+        else
+            is_return = false
+
         state.lexemes = []
         buff_string_type = ''
     } else {
@@ -93,7 +99,6 @@ module.exports = (file) => {
         buff_string_type = ''
 
         //now check for EQUALS
-        buff = file[++state.pos]
         while (!EQUALS.test(buff) && state.pos != state.length) {
             buff = file[++state.pos]
         }
@@ -105,19 +110,27 @@ module.exports = (file) => {
               range: [state.pos]
             })
         } else {
-            //Will add more robust error handling
             throw new SyntaxError('Missing "=" in variable declaration')
         }
     
         //assumed the equals was handled
         buff = file[++state.pos]
         walk.call(state, file)
+
+        is_keyword = false
     }
 
-    //Return statement parsing will be added later
-    // if (is_keyword && is_return) {
-
-    // }
+    if (is_keyword && is_return) {
+        buff = file[++state.pos]
+        
+        if (NEW_LINE.test(buff))
+            throw new SyntaxError('Invalid return expression')
+        
+        if (buff == '(')
+            buff = file[++state.pos]
+        if (buff == '<')
+            walk.call(state, file)
+    }
 
     state.pos++
   }
