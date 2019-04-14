@@ -37,6 +37,7 @@ module.exports = (file) => {
   let e_parse = false
 
   while (state.pos != state.length) {
+    let temp = []
     buff = file[state.pos]
 
     while (L_CHARS.test(buff)) {
@@ -54,7 +55,7 @@ module.exports = (file) => {
         range_end = state.lexemes[state.lexemes.length - 1].pos
         is_keyword = true
 
-        state.tokens.push({
+        temp.push({
           type: 'Keyword',
           value: buff_string_type,
           range: [range_start, range_end]
@@ -66,6 +67,7 @@ module.exports = (file) => {
             is_return = false
 
         state.lexemes = []
+
         buff_string_type = ''
     } else {
         is_keyword = false
@@ -89,7 +91,7 @@ module.exports = (file) => {
         range_start = state.lexemes[0].pos
         range_end = state.lexemes[state.lexemes.length - 1].pos
 
-        state.tokens.push({
+        temp.push({
           type: 'Identifier',
           value: buff_string_type,
           range: [range_start, range_end]
@@ -104,7 +106,7 @@ module.exports = (file) => {
         }
 
         if (EQUALS.test(buff)) {
-            state.tokens.push({
+            temp.push({
               type: 'Punctuator',
               value: buff,
               range: [state.pos]
@@ -113,10 +115,15 @@ module.exports = (file) => {
             throw new SyntaxError('Missing "=" in variable declaration')
         }
     
-        //assumed the equals was handled
         buff = file[++state.pos]
-        walk.call(state, file)
+        while (WHITESPACE.test(buff))
+            buff = file[++state.pos]
+        if (buff == '<') {
+            state.tokens = state.tokens.concat(temp)
+            walk.call(state, file)
+        }
 
+        //don't do anything if not jsx
         is_keyword = false
     }
 
@@ -128,8 +135,10 @@ module.exports = (file) => {
         
         if (buff == '(')
             buff = file[++state.pos]
-        if (buff == '<')
+        if (buff == '<') {
+            state.tokens = state.tokens.concat(temp)
             walk.call(state, file)
+        }
     }
 
     state.pos++

@@ -6,20 +6,18 @@ const CHAR = /\w/
 const NON_WHITE_SPACE = /\S/
 const NEW_LINE = /\r\n?|\n/
 
-let buff = ''
-
 function walk(html) {
   if (this.pos == this.length) return
 
+  let buff = ''
   let buff_string = ''
   let closing_tag = ''
-  let parsed_ctag =  false
+  let parsed_ctag = false
   let etag_parse_started = false
   let s_pos, e_pos
 
-  if (this.pos == 0)
-    buff = html[this.pos]
 
+  buff = html[this.pos] 
   while (buff != '<' && this.pos != this.length)
     buff = html[++this.pos]
 
@@ -29,13 +27,13 @@ function walk(html) {
       value: buff,
       pos: this.pos
     })
-
+    
     buff_string += buff
     while (!ELEMENTS.includes(buff_string) && this.pos != this.length) {
         buff = html[++this.pos]
         buff_string += buff
     }
-
+    console.log('HTML: ', buff_string)
     if (!ELEMENTS.includes(buff_string))
         throw new SyntaxError('Invalid JSX')
 
