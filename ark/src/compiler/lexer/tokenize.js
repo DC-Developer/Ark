@@ -76,7 +76,6 @@ module.exports = (file) => {
 
     if (is_keyword && !is_return) {
         buff = file[++state.pos]   
-
         while (L_CHARS.test(buff)) {
             state.lexemes.push({
               type: 'Character',
