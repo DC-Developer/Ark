@@ -1,4 +1,4 @@
-const fs = require("fs")
+const fs = require('fs')
 const program = './jsx.js'
 const Lexer = require('./ark/src/compiler/lexer/lexer')
 
