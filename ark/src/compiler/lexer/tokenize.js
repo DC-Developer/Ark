@@ -1,9 +1,9 @@
 const KEYWORDS = require('../grammar/keywords')
 const ELEMENTS = require('../grammar/elements')
 const WHITESPACE = /\s/
+const NEW_LINE = /\r\n?|\n/
 const EQUALS = /=/
 const L_CHARS = /[a-z]/
-const NEW_LINE = /\r\n?|\n/
 
 const walk = require('./walk')
 

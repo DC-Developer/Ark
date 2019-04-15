@@ -1,10 +1,12 @@
 const KEYWORDS = require('../grammar/keywords')
 const ELEMENTS = require('../grammar/elements')
 const WHITE_SPACE = /\s/
-const L_CHARS = /[a-z]/
-const CHAR = /\w/
 const NON_WHITE_SPACE = /\S/
 const NEW_LINE = /\r\n?|\n/
+const L_CHARS = /[a-z]/
+const CHAR = /\w/
+
+const getText = require('./get_text')
 
 function walk(html) {
   if (this.pos == this.length) return
@@ -62,28 +64,17 @@ function walk(html) {
       etag_parse_started = true
 
       if (html[ahead] != '/') {
-          walk.call(this, html)
-          etag_parse_started = false
+
+        if (this.lexemes.length)
+            getText.call(this)
+
+        walk.call(this, html)
+        etag_parse_started = false
+
       } else {
-          if (this.lexemes.length) {
-            const start = this.lexemes[0].pos
-            const end = this.lexemes[this.lexemes.length - 1].pos
-            let char_str = ''
-            let ln = this.lexemes.length
-            let count = 0
 
-            while (count != ln) {
-                char_str += this.lexemes[count].value
-                count++
-            }
-
-            this.tokens.push({
-              type: 'JSXText',
-              value: char_str,
-              range: [start, end]
-            })
-            this.lexemes = []
-          }
+          if (this.lexemes.length)
+              getText.call(this)
 
           while (buff != '>' && pos != this.length) {
               ctag_check += buff
