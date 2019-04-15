@@ -4,7 +4,7 @@
   "description": "This is a personal passion project of mine. The idea of how the framework does its magic always interested me, so I strove to understand how they're engineered. What better way to understand its internals than to build one yourself? This is my venture into building a modern, light weight framework.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "babel-loader": "^8.0.5",
+    "jest": "^24.7.1",
     "webpack": "^4.29.6"
   }
 }

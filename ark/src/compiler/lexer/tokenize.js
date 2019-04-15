@@ -144,4 +144,5 @@ module.exports = (file) => {
   }
   console.log('Lexing Complete')
   console.log('Tokens: ', state.tokens)
+  return state.tokens
 }
