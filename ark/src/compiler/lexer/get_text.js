@@ -4,8 +4,8 @@ const NEW_LINE = /\r\n?|\n/
 function getText() {
     const start = this.lexemes[0].pos
     const end = this.lexemes[this.lexemes.length - 1].pos
+    const ln = this.lexemes.length
     let char_str = ''
-    let ln = this.lexemes.length
     let count = 0
     let buff = this.lexemes[count].value
 
