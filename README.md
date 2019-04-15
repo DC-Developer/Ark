@@ -5,4 +5,4 @@ This is a personal passion project of mine. The idea of how frameworks work alwa
 
 As of right now, the current release has an almost complete lexing phase. The parsing phase is currently being iterated on. 
 
-So far, the lexer can correctly tokenize basic JSX format --with newlines and spaces between elements, but no element attributes.
+So far, the lexer can correctly tokenize basic JSX format.
