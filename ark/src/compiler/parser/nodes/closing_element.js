@@ -1,8 +1,8 @@
-function closingElement() {
+function closingElement(token) {
     return {
         type: 'JSXClosingElement',
-        start: null,
-        end: null,
+        start: token.range[0],
+        end: token.range[1],
         name: {}
     }
 }

@@ -1,8 +1,8 @@
-function element() {
+function element(token) {
     return {
         type: 'JSXElement',
-        start: null,
-        end: null,
+        start: token.range[0],
+        end: token.range[1],
         openingElement: {},
         closingElement: {},
         children: []

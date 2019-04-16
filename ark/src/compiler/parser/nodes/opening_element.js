@@ -1,11 +1,11 @@
-function openingElement() {
+function openingElement(token) {
     return {
         type: 'JSXOpeningElement',
-        start: null,
-        end: null,
+        start: token.range[0],
+        end: token.range[1],
         attributes: [],
         name: {},
-        selfClosing: false
+        selfClosing: null
     }
 }
 return openingElement
