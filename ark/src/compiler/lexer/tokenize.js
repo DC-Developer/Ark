@@ -130,14 +130,20 @@ module.exports = (file) => {
         if (NEW_LINE.test(buff))
             throw new SyntaxError('Invalid return expression')
         
-        if (buff == '(')
+        while (buff == ' ')
             buff = file[++state.pos]
+        
+        if (buff == '(') {
+            buff = file[++state.pos]
+            while (WHITESPACE.test(buff))
+                buff = file[++state.pos]
+        }
+
         if (buff == '<') {
-            //this will be improved upon, for now just assume
-            //"<" is the only correct next token
+
             state.tokens = state.tokens.concat(temp)
             walk.call(state, file)
-        }
+        } 
     }
 
     state.pos++
