@@ -140,7 +140,6 @@ module.exports = (file) => {
         }
 
         if (buff == '<') {
-
             state.tokens = state.tokens.concat(temp)
             walk.call(state, file)
         } 
