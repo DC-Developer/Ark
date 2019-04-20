@@ -1,8 +1,10 @@
-function program(token) {
+function program(file) {
+    const start = file[0].range[0];
+    const end = file[file.length - 1].range[1]
     return {
         type: 'Program',
-        start: null,
-        end: null,
+        start: start,
+        end: end,
         body: [],
         sourceType: 'module'
     }
@@ -13,7 +15,7 @@ function element(token, node) {
         type: 'JSXElement',
         start: token.range[0],
         end: null,
-        openingElement: node(token),
+        openingElement: node,
         closingElement: {},
         children: []
     }
@@ -25,7 +27,7 @@ function openingElement(token, node) {
         start: token.range[0],
         end: token.range[1],
         attributes: [],
-        name: node(token),
+        name: node,
         selfClosing: false
     }
 }
@@ -35,12 +37,21 @@ function closingElement(token, node) {
         type: 'JSXClosingElement',
         start: token.range[0],
         end: token.range[1],
-        name: node(token)
+        name: node
     }
 }
 
 function identifier(token) {
-    const identifier = token.name.replace('<').replace
+    return {
+        type: 'Identifier',
+        start: token.range[0],
+        end: token.range[1],
+        name: token.value
+    }
+}
+
+function jsxIdentifier(token) {
+    const identifier = token.value.replace('<').replace
     return {
         type: 'JSXIdentifier',
         start: token.range[0] + 1,
@@ -49,22 +60,22 @@ function identifier(token) {
     }
 }
 
-function variableDeclaration() {
+function variableDeclaration(token) {
     return {
         type: 'VariableDeclaration',
-        start: null,
+        start: token.range[0],
         end: null,
         declarations: [],
         kind: token.value
     }
 }
 
-function variableDeclarator() {
+function variableDeclarator(token, id) {
     return {
         type: 'VariableDeclarator',
-        start: null,
+        start: token.range[0],
         end: null,
-        id: {},
+        id: id,
         init: {}
     }
 }
@@ -78,15 +89,15 @@ function functionDeclaration() {
         expression: null,
         generator: null,
         params: [],
-        body: {} 
+        body: {}
     }
 }
 
-function returnStatement() {
+function returnStatement(token) {
     return {
         type: 'ReturnStatement',
-        start: null,
-        end: null,
+        start: token.range[0],
+        end: token.range[1],
         argument: {}
     }
 }
@@ -100,10 +111,26 @@ function blockStatement() {
     }
 }
 
+function text(node) {
+    return {
+        type: 'JSXText',
+        start: node.range[0],
+        end: node.range[1],
+        value: node.value
+    }
+}
+
 module.exports = {
     program,
     element,
+    text,
     openingElement,
     closingElement,
-    identifier
+    identifier,
+    jsxIdentifier,
+    variableDeclaration,
+    variableDeclarator,
+    functionDeclaration,
+    returnStatement,
+    blockStatement
 }
