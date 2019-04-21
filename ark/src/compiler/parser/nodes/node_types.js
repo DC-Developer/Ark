@@ -97,7 +97,7 @@ function returnStatement(token) {
     return {
         type: 'ReturnStatement',
         start: token.range[0],
-        end: token.range[1],
+        end: null,
         argument: {}
     }
 }

@@ -19,6 +19,7 @@ function walk(p_node) {
             p_node.declarations.push(v_declarator)
 
             parsed_ctag = true
+            break
         }
 
         if (node.type == 'JSXOpeningElement') {
@@ -32,11 +33,18 @@ function walk(p_node) {
             if (p_node.type == 'VariableDeclarator')
                 p_node.init = jsxElement
 
+            if (p_node.type == 'ReturnStatement') {
+                p_node.end = jsxElement.end
+                p_node.argument = jsxElement
+
+                parsed_ctag = true
+            }
+
             if (p_node.type == 'JSXElement')
                 p_node.children.push(jsxElement)
         }
 
-        if (node.type == 'JSXText')
+        if (node.type == 'JSXText' && p_node.type == 'JSXElement')
             p_node.children.push(node_types.text(node))
 
         if (node.type == 'JSXClosingElement') {

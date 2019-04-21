@@ -15,10 +15,10 @@ module.exports = (tokens) => {
     }
     //hacked together, will refactor later
 
-    while (state.pos != state.length) {
+    while (state.pos < state.length) {
        node = tokens[state.pos]
 
-       if (i == 0) {
+       if (state.pos == 0) {
            ast.start = node.range[0]
 
            if (declaration_types.variable.includes(node.value)) {
@@ -27,19 +27,29 @@ module.exports = (tokens) => {
 
                walk.call(state, v_declaration)
                ast.body.push(v_declaration)
-
-               console.log('AST: ', ast)
-               console.log('BODY: ', ast.body[0])
-               console.log('DECLARATIONS: ', ast.body[0].declarations[0])
            }
            //for now return statement will be a declaration type
-        //    if (declaration_types.return == node.value) {
-        //        ast.body.push(node_types.returnStatement(node))
+           if (node.value == declaration_types.return) {
+               const r_declaration = node_types.returnStatement(node)
+               ++state.pos
 
-        //    }
+               walk.call(state, r_declaration)
+               ast.body.push(r_declaration)
+           }
        }
 
+       //just in case previous conditional ran
+       node = tokens[state.pos]
+       
+       //for now return statement will be a declaration type
+       if (node.value == declaration_types.return) {
+           const r_declaration = node_types.returnStatement(node)
+           ++state.pos
+
+           walk.call(state, r_declaration)
+           ast.body.push(r_declaration)
+       }
        state.pos++
     }
-    // console.log(ast)
+    console.log(ast)
 }
