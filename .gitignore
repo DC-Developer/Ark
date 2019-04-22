@@ -62,3 +62,6 @@ typings/
 
 # test file
 run.js
+
+# random jsx for test parsing
+h.js

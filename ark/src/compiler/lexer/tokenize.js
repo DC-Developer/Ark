@@ -140,7 +140,6 @@ module.exports = (file) => {
         }
 
         if (buff == '<') {
-
             state.tokens = state.tokens.concat(temp)
             walk.call(state, file)
         } 
@@ -148,7 +147,5 @@ module.exports = (file) => {
 
     state.pos++
   }
-  console.log('Lexing Complete')
-  console.log('Tokens: ', state.tokens)
   return state.tokens
 }
