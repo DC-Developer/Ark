@@ -7,10 +7,6 @@ class Parser {
     parse() {
         return toAst(this.tokens)
     }
-
-    log() {
-        console.log(this.tokens)
-    }
 }
 
 module.exports = Parser

@@ -2,6 +2,7 @@ const node_types = require('./nodes/node_types')
 const declaration_types = require('./declaration_types')
 const walk = require('./walk')
 
+
 module.exports = (tokens) => {
     let i = 0
     let ln = tokens.length
@@ -13,8 +14,8 @@ module.exports = (tokens) => {
         pos: i,
         length: ln
     }
+    
     //hacked together, will refactor later
-
     while (state.pos < state.length) {
        node = tokens[state.pos]
 
@@ -40,16 +41,17 @@ module.exports = (tokens) => {
 
        //just in case previous conditional ran
        node = tokens[state.pos]
-       
+
        //for now return statement will be a declaration type
-       if (node.value == declaration_types.return) {
+       if (node && node.value == declaration_types.return) {
            const r_declaration = node_types.returnStatement(node)
            ++state.pos
 
            walk.call(state, r_declaration)
            ast.body.push(r_declaration)
        }
+
        state.pos++
     }
-    console.log(ast)
+    return ast
 }

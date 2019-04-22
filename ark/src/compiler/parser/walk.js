@@ -5,7 +5,7 @@ function walk(p_node) {
     let parsed_ctag = false
     let node
 
-    while (!parsed_ctag) {
+    while (!parsed_ctag && this.pos < this.length) {
         node = this.tokens[this.pos]
 
         if (node.type == 'Identifier') {
@@ -30,18 +30,21 @@ function walk(p_node) {
             ++this.pos
             walk.call(this, jsxElement)
 
-            if (p_node.type == 'VariableDeclarator')
+            if (p_node.type == 'VariableDeclarator') {
                 p_node.init = jsxElement
+                p_node.end = jsxElement.end
+                parsed_ctag = true
+            }
 
             if (p_node.type == 'ReturnStatement') {
                 p_node.end = jsxElement.end
                 p_node.argument = jsxElement
-
                 parsed_ctag = true
             }
 
             if (p_node.type == 'JSXElement')
                 p_node.children.push(jsxElement)
+            continue
         }
 
         if (node.type == 'JSXText' && p_node.type == 'JSXElement')
