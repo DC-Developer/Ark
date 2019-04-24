@@ -13,13 +13,13 @@ const test3 = require('./basic_both/expected_values')
 
 test('tokenizes nested child nodes', () => {
     lex(nested_file, (tokens) => {
-        expect(tokens).toBe(test1)
+        expect(tokens).toEqual(test1)
     })
 })
 
 test('tokenizes jsx from multiple function return formats', () => {
     lex(return_formats, (tokens) => {
-        expect(tokens).toBe(test2)
+        expect(tokens).toEqual(test2)
     })
 })
 
