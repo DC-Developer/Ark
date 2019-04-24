@@ -44,6 +44,7 @@ function walk(p_node) {
 
             if (p_node.type == 'JSXElement')
                 p_node.children.push(jsxElement)
+            
             continue
         }
 
